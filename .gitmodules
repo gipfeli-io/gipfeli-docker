@@ -1,0 +1,6 @@
+[submodule "gipfeli-frontend"]
+	path = gipfeli-frontend
+	url = https://github.com/gipfeli-io/gipfeli-frontend
+[submodule "gipfeli-api"]
+	path = gipfeli-api
+	url = https://github.com/gipfeli-io/gipfeli-api
