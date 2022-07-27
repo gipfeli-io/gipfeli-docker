@@ -1,7 +1,10 @@
 version: "3.9"
 services:
   frontend:
-    build: ./gipfeli-frontend
+    build: 
+      context: ./gipfeli-frontend
+      args:
+        - PUBLIC_BACKEND_API=http://backend:3000
     env_file:
       - ./gipfeli-frontend/.env
     ports:
@@ -12,6 +15,14 @@ services:
       - database
     env_file:
       - ./gipfeli-api/.env
+    command: 
+      - /bin/sh
+      - -c
+      - |
+        echo "Waiting 15s so our db has started"
+        sleep 15s
+        npm run typeorm:migrate
+        npm run start:prod
   database:
     image: postgis/postgis
     restart: always
