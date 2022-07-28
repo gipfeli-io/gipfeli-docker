@@ -2,6 +2,11 @@
 
 This Docker configuration allows you to run the whole Gipfeli app locally with just one container.
 
+## Prerequisites
+
+* Docker must be installed on the system
+* Ports 3000, 3001 & 3002 must be unused
+
 ## Configuration
 
 After cloning the repository, the first step is to configure environment variables.
@@ -42,6 +47,19 @@ Once the variables are set, you can start the application by running `docker com
 * http://localhost:3001 -> Frontend
 * http://localhost:3002 -> Adminer database GUI
 
+### Adding a user
+
+To add a user, ssh into the container and use the normal `create-user` command and follow the prompts there:
+
+```
+# normally, the container should be gipfeli_api, but if you're running multiple instances, it might be gipfeli_api_1
+docker exec -it gipfeli_api sh
+
+# once logged in, make sure you're in the /app directory and run the following command
+npm run create-user
+```
+
+**Note:** You might also use `docker exec -it gipfeli_api sh -c "npm run create-user"`, though the prompts do not work as nicely in the `sh` context (e.g. passwords not hidden, prompts duplicated, etc.).
 
 ## Commands
 
