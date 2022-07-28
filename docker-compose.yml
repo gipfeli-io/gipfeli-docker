@@ -5,20 +5,33 @@ services:
     env_file:
       - ./gipfeli-frontend/.env
     ports:
-      - "9999:8080"
+      - "3001:8080"
+
   backend:
     build: ./gipfeli-api
+    ports:
+      - "3000:3000"
     depends_on:
       - database
     env_file:
       - ./gipfeli-api/.env
+    command: 
+      - /bin/sh
+      - -c
+      - |
+        echo "Waiting 15s so our db has started"
+        sleep 15s
+        npm run typeorm:migrate
+        npm run start:prod
+
   database:
-    image: postgis/postgis
+    image: postgis/postgis:14-3.2
     restart: always
     environment:
       POSTGRES_PASSWORD: postgres
+
   adminer:
     image: adminer
     restart: always
     ports:
-      - 8080:8080
+      - 3002:8080
