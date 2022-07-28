@@ -61,7 +61,9 @@ npm run create-user
 
 **Note:** You might also use `docker exec -it gipfeli_api sh -c "npm run create-user"`, though the prompts do not work as nicely in the `sh` context (e.g. passwords not hidden, prompts duplicated, etc.).
 
-## Commands
+## Development
+
+In order to pull in the latest submodule commits, use the following command and then add, commit and push the changes:
 
 ```
 git submodule update --remote
