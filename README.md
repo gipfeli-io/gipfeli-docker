@@ -2,6 +2,17 @@
 
 This Docker configuration allows you to run the whole Gipfeli app locally with just one container.
 
+## Installation
+
+Since we're using submodules, some additional commands are necessary to clone the repository correctly.
+
+1. `git clone` this repository
+2. `cd` into the newly cloned repository
+3. Run `git submodule init`
+4. Run `git submodule update`
+
+This will fetch the submodules and their content, and you can go to the step of configuring the project.
+
 ## Configuration
 
 After cloning the repository, the first step is to configure environment variables.
