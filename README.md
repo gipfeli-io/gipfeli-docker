@@ -17,6 +17,11 @@ This will fetch the submodules and their content, and you can go to the step of 
 
 After cloning the repository, the first step is to configure environment variables.
 
+
+> **_NOTE:_** If you copy the .env.example file to create a new .env file please be aware that comments on the same
+> line as variables (e.g. `SOME_VAR= #this is the comment`) must be removed, otherwise there will be build errors.
+
+
 ### gipfeli-api
 
 Create a `.env` file in the `./gipfeli-api` directory. While you're free in configuring most of the variables as per the `.env.example` file, the following variables have to be set to meet the Docker requirements.
@@ -32,9 +37,37 @@ CORS_ORIGIN=http://localhost:3001
 
 As for the `GCS_BUCKET` and `GCS_SERVICE_ACCOUNT` variables, either provide a bucket on your own (with public access rights) or ask the gipfeli.io team for access to the dev bucket.
 
-**Note regarding SendGrid:** If you set `ENVIRONMENT` to either *production* or *staging*, you also have to set the `SENDGRID_` variables because these environments use email notifications. Ask the gipfeli.io team for help.
+#### SendGrid: 
+If you set `ENVIRONMENT` to either *production* or *staging*, you also have to set the `SENDGRID_` variables because these environments use email notifications. Ask the gipfeli.io team for help.
 
-**Note regarding Sentry:** If you set the `SENTRY_` variables, make sure you have a valid Sentry project. Ask the gipfeli.io team for help.
+#### Sentry:
+If you set the `SENTRY_` variables, make sure you have a valid Sentry project. Ask the gipfeli.io team for help.
+
+#### ENVIRONMENT 
+If you don't set the environment it will automatically be set to `localhost`. 
+This means that when you try to create a user using the sign up form you have to manually activate the user in the database.
+There is also a possibility to create a user with a wizard using the backend container. Below are the steps for both of the possible ways to create a new user:
+
+**Create user using wizard (preferred way!)**
+
+The docker containers need to be running for this!
+1. Open Terminal
+2. Enter `docker ps`
+3. Find postgres docker container id
+4. Exec into the container e.g. `docker exec -it CONTAINER_ID sh` (replace CONTAINER_ID!)
+5. Execute `npm run create-user`
+
+**Activate user created by sign up form**
+
+The docker containers need to be running for this!
+1. Open terminal
+2. Enter `docker ps`
+3. Find postgres docker container id
+4. Exec into the container e.g. `docker exec -it CONTAINER_ID bash` (replace CONTAINER_ID!)
+5. Execute `psql -U postgres -W`
+6. Enter the password for the database (see value of TYPEORM_DATABASE above)
+7. Execute `UPDATE public.user SET "isActive"=true;`
+
 
 ### gipfeli-frontend
 
@@ -43,7 +76,8 @@ Create a `.env` file in the `./gipfeli-frontend` directory. You're free in confi
 * `REACT_APP_PUBLIC_BACKEND_API`: Set to `http://localhost:3000`
 * `REACT_APP_STORAGE_BUCKET_BASE_URL`: Set to the base URL of your Google Storage bucket. Ask the gipfeli.io team for help.
 
-**Note regarding Sentry:** If you set the `SENTRY_` variables, make sure you have a valid Sentry project. Ask the gipfeli.io team for help.
+#### Sentry:
+If you set the `SENTRY_` variables, make sure you have a valid Sentry project. Ask the gipfeli.io team for help.
 
 ## Run
 
@@ -53,6 +87,12 @@ Once the variables are set, you can start the application by running `docker com
 * http://localhost:3001 -> Frontend
 * http://localhost:3002 -> Adminer database GUI
 
+### Possible issues:
+We are using IndexedDB to store our data for offline use. If you already accessed the frontend on localhost:3001 using another approach than 
+the docker containers be aware that there can be an issue with the database versions used. 
+
+If you get a `DatabaseClosedError` with message `VersionError The requested version (xx) is less than version...` please use our clean up functionality.
+You can find it here: http://localhost:3001/profile/reset
 
 ## Commands
 
