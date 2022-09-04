@@ -72,7 +72,7 @@ Once the variables are set, you can start the application by running `docker com
 The docker containers need to be running for this!
 1. Open Terminal
 2. Enter `docker ps`
-3. Find postgres docker container id
+3. Find backend docker container id
 4. Exec into the container e.g. `docker exec -it CONTAINER_ID sh` (replace CONTAINER_ID!)
 5. Execute `npm run create-user`
 
