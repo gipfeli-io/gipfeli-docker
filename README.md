@@ -48,6 +48,25 @@ If you don't set the environment it will automatically be set to `localhost`.
 This means that when you try to create a user using the sign up form you have to manually activate the user in the database.
 There is also a possibility to create a user with a wizard using the backend container. Below are the steps for both of the possible ways to create a new user:
 
+### gipfeli-frontend
+
+Create a `.env` file in the `./gipfeli-frontend` directory. You're free in configuring most of the variables as per the `.env.example` file except for
+
+* `REACT_APP_PUBLIC_BACKEND_API`: Set to `http://localhost:3000`
+* `REACT_APP_STORAGE_BUCKET_BASE_URL`: Set to the base URL of your Google Storage bucket. Ask the gipfeli.io team for help.
+
+#### Sentry:
+If you set the `SENTRY_` variables, make sure you have a valid Sentry project. Ask the gipfeli.io team for help.
+
+## Run
+
+Once the variables are set, you can start the application by running `docker compose up` in the project's root directory. This will boot the application (which might take some time) and expose the following services:
+
+* http://localhost:3000 -> Backend API
+* http://localhost:3001 -> Frontend
+* http://localhost:3002 -> Adminer database GUI
+
+### Creating a user
 **Create user using wizard (preferred way!)**
 
 The docker containers need to be running for this!
@@ -68,26 +87,7 @@ The docker containers need to be running for this!
 6. Enter the password for the database (see value of TYPEORM_DATABASE above)
 7. Execute `UPDATE public.user SET "isActive"=true;`
 
-
-### gipfeli-frontend
-
-Create a `.env` file in the `./gipfeli-frontend` directory. You're free in configuring most of the variables as per the `.env.example` file except for
-
-* `REACT_APP_PUBLIC_BACKEND_API`: Set to `http://localhost:3000`
-* `REACT_APP_STORAGE_BUCKET_BASE_URL`: Set to the base URL of your Google Storage bucket. Ask the gipfeli.io team for help.
-
-#### Sentry:
-If you set the `SENTRY_` variables, make sure you have a valid Sentry project. Ask the gipfeli.io team for help.
-
-## Run
-
-Once the variables are set, you can start the application by running `docker compose up` in the project's root directory. This will boot the application (which might take some time) and expose the following services:
-
-* http://localhost:3000 -> Backend API
-* http://localhost:3001 -> Frontend
-* http://localhost:3002 -> Adminer database GUI
-
-### Possible issues:
+### Possible issues
 We are using IndexedDB to store our data for offline use. If you already accessed the frontend on localhost:3001 using another approach than 
 the docker containers be aware that there can be an issue with the database versions used. 
 
