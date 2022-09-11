@@ -1,6 +1,8 @@
 [submodule "gipfeli-frontend"]
 	path = gipfeli-frontend
+	branch = main
 	url = https://github.com/gipfeli-io/gipfeli-frontend
 [submodule "gipfeli-api"]
 	path = gipfeli-api
+	branch = main
 	url = https://github.com/gipfeli-io/gipfeli-api

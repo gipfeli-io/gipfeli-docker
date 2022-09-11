@@ -1,6 +1,6 @@
 # gipfeli.io App Suite
 
-This Docker configuration allows you to run the whole Gipfeli app locally with just one container.
+This Docker configuration allows you to run the whole Gipfeli app locally with just one container. It pulls in the main branch.
 
 ## Installation
 
@@ -33,6 +33,7 @@ TYPEORM_PASSWORD=postgres
 TYPEORM_DATABASE=postgres
 TYPEORM_PORT=5432
 CORS_ORIGIN=http://localhost:3001
+JWT_SECRET=somesecretvalueofyourchoice
 ```
 
 As for the `GCS_BUCKET` and `GCS_SERVICE_ACCOUNT` variables, either provide a bucket on your own (with public access rights) or ask the gipfeli.io team for access to the dev bucket.
@@ -45,15 +46,16 @@ If you set the `SENTRY_` variables, make sure you have a valid Sentry project. A
 
 #### ENVIRONMENT 
 If you don't set the environment it will automatically be set to `localhost`. 
-This means that when you try to create a user using the sign up form you have to manually activate the user in the database.
-There is also a possibility to create a user with a wizard using the backend container. Below are the steps for both of the possible ways to create a new user:
+This means that when you try to create a user using the sign up form you have to fetch the activation link from the docker console, as the local notification provider does not send out emails, but prints to the console. You can also use the wizard or adjust the status in the database directly (see below under `Creating a user`).
 
 ### gipfeli-frontend
 
-Create a `.env` file in the `./gipfeli-frontend` directory. You're free in configuring most of the variables as per the `.env.example` file except for
+Create a `.env` file in the root directory (`./.env`, alongside e.g. the `docker-compose.yml` file). You're free in configuring most of the variables as per the `./gipfeli-frontend/.env.example` file except for
 
 * `REACT_APP_PUBLIC_BACKEND_API`: Set to `http://localhost:3000`
 * `REACT_APP_STORAGE_BUCKET_BASE_URL`: Set to the base URL of your Google Storage bucket. Ask the gipfeli.io team for help.
+
+**Important:** Please check twice that you're adding the `.env` file in the root directory. The reason for this is that these environment variables are needed at buildtime and passed as build args in our docker compose configuration. As such, they need to be present in docker-compose and that only works if  you add a `.env` file at the root. This is in contrats to the backend, which needs the file at runtime and requires it in its directory.
 
 #### Sentry:
 If you set the `SENTRY_` variables, make sure you have a valid Sentry project. Ask the gipfeli.io team for help.
