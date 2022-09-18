@@ -55,7 +55,7 @@ Create a `.env` file in the root directory (`./.env`, alongside e.g. the `docker
 * `REACT_APP_PUBLIC_BACKEND_API`: Set to `http://localhost:3000`
 * `REACT_APP_STORAGE_BUCKET_BASE_URL`: Set to the base URL of your Google Storage bucket. Ask the gipfeli.io team for help.
 
-**Important:** Please check twice that you're adding the `.env` file in the root directory. The reason for this is that these environment variables are needed at buildtime and passed as build args in our docker compose configuration. As such, they need to be present in docker-compose and that only works if  you add a `.env` file at the root. This is in contrats to the backend, which needs the file at runtime and requires it in its directory.
+**Important:** Please check twice that you're adding the `.env` file in the root directory. The reason for this is that these environment variables are needed at buildtime and passed as build args in our docker compose configuration. As such, they need to be present in docker-compose and that only works if  you add a `.env` file at the root. This is in contrast to the backend, which needs the file at runtime and requires it in its directory.
 
 #### Sentry:
 If you set the `SENTRY_` variables, make sure you have a valid Sentry project. Ask the gipfeli.io team for help.
