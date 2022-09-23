@@ -96,8 +96,13 @@ the docker containers be aware that there can be an issue with the database vers
 If you get a `DatabaseClosedError` with message `VersionError The requested version (xx) is less than version...` please use our clean up functionality.
 You can find it here: http://localhost:3001/profile/reset
 
-## Commands
+## How to update submodules
+
+Since we're using submodules, we have to update this repository manually when we want to point at a new release.
 
 ```
+git submodule init
 git submodule update --remote
 ```
+
+And then add all the changes and commit and push.
