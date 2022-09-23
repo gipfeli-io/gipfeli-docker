@@ -34,6 +34,9 @@ TYPEORM_DATABASE=postgres
 TYPEORM_PORT=5432
 CORS_ORIGIN=http://localhost:3001
 JWT_SECRET=somesecretvalueofyourchoice
+NO_OF_ROUNDS=10 # or any other number
+CLEAN_UP_TOKEN=anothersecretvalue
+ADMIN_CONTACTS=your-email@domain.com
 ```
 
 As for the `GCS_BUCKET` and `GCS_SERVICE_ACCOUNT` variables, either provide a bucket on your own (with public access rights) or ask the gipfeli.io team for access to the dev bucket.
