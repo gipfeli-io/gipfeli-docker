@@ -60,6 +60,9 @@ Create a `.env` file in the root directory (`./.env`, alongside e.g. the `docker
 
 **Important:** Please check twice that you're adding the `.env` file in the root directory. The reason for this is that these environment variables are needed at buildtime and passed as build args in our docker compose configuration. As such, they need to be present in docker-compose and that only works if  you add a `.env` file at the root. This is in contrast to the backend, which needs the file at runtime and requires it in its directory.
 
+
+> **_NOTE:_** As the env file is required during build, whenever you change the variables, you need to rebuild the container!
+
 #### Sentry:
 If you set the `SENTRY_` variables, make sure you have a valid Sentry project. Ask the gipfeli.io team for help.
 
