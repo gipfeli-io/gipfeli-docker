@@ -72,7 +72,7 @@ Once the variables are set, you can start the application by running `docker com
 
 * http://localhost:3000 -> Backend API
 * http://localhost:3001 -> Frontend
-* http://localhost:3002 -> Adminer database GUI
+* http://localhost:3002 -> Adminer database GUI (select `Postgresql`, use `database` as host and otherwise all fields with `postgres`)
 
 ### Creating a user
 **Create user using wizard (preferred way!)**
